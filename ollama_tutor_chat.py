@@ -92,7 +92,7 @@ def stream_response(messages: list[dict]) -> str:
         print(token, end="", flush=True)
         full_response += token
 
-    print()  # 换行
+    print()
     return full_response
 
 
