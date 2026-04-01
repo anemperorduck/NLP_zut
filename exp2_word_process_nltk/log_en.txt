@@ -1,0 +1,73 @@
+============================================================
+【原始文本】
+I love NLP, because it helps computers understand human language. Natural language processing is a fascinating field. Machine learning makes NLP more powerful every year.
+
+============================================================
+【STEP 1】分句
+  句子1：I love NLP, because it helps computers understand human language.
+  句子2：Natural language processing is a fascinating field.
+  句子3：Machine learning makes NLP more powerful every year.
+
+============================================================
+【STEP 2】分词（以第1句为例）
+  原始分词结果：['I', 'love', 'NLP', ',', 'because', 'it', 'helps', 'computers', 'understand', 'human', 'language', '.']
+
+============================================================
+【STEP 3】清洗文本
+  去标点 + 小写化 + 去停用词后：['love', 'nlp', 'helps', 'computers', 'understand', 'human', 'language']
+
+============================================================
+【STEP 4】加载预训练词向量（首次运行会下载模型，约30MB）
+  模型加载完成！词汇表大小：400000 个词，每个词向量维度：50
+
+============================================================
+【STEP 5】词嵌入：把词转换成向量
+  'language' 的词向量（50维，只展示前10维）：
+  [-0.5799 -0.1101 -1.1557 -0.003  -0.2061  0.4529 -0.1667 -1.0382 -0.9924
+  0.3988]  ...
+  向量形状：(50,)
+
+============================================================
+【STEP 6】句子向量（词向量取平均）
+  句子1 tokens：['love', 'nlp', 'helps', 'computers', 'understand', 'human', 'language']
+  句子1 向量（前5维）：[0.0609 0.0143 0.0939 0.0667 0.3779] ...
+  向量形状：(50,)
+  句子2 tokens：['natural', 'language', 'processing', 'fascinating', 'field']
+  句子2 向量（前5维）：[ 0.0872  0.1696 -0.4486  0.5776  0.3486] ...
+  向量形状：(50,)
+  句子3 tokens：['machine', 'learning', 'makes', 'nlp', 'powerful', 'every', 'year']
+  句子3 向量（前5维）：[-0.0099 -0.0517  0.2915  0.0704  0.3341] ...
+  向量形状：(50,)
+
+============================================================
+【STEP 7-A】词级别相似性：找与某个词最相近的词
+  与 'language' 最相似的5个词：
+    languages            相似度=0.8815
+    word                 相似度=0.8100
+    spoken               相似度=0.8075
+    vocabulary           相似度=0.7903
+    translation          相似度=0.7879
+
+【STEP 7-B】词对之间的相似度
+  similarity('nlp', 'language') = 0.0350
+  similarity('love', 'hate') = 0.6459
+  similarity('computer', 'machine') = 0.7052
+
+【STEP 7-C】句子级别相似度（用余弦相似度）
+  句子1：I love NLP, because it helps computers understand human language.
+  句子2：Natural language processing is a fascinating field.
+  句子3：Machine learning makes NLP more powerful every year.
+
+  句子1 vs 句子2 相似度：0.8135
+  句子1 vs 句子3 相似度：0.8504
+  句子2 vs 句子3 相似度：0.8090
+
+============================================================
+【STEP 8】词向量类比运算：king - man + woman = ?
+  计算 king - man + woman 最接近的词：
+    queen           相似度=0.8524
+    throne          相似度=0.7664
+    prince          相似度=0.7592
+
+============================================================
+✅ 流程演示完毕！
