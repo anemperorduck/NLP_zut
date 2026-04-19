@@ -5,3 +5,4 @@ temp.*
 .env
 exp2_word_process_nltk/sgns.target.word-word.dynwin5.thr10.neg5.dim300.iter5
 exp2_word_process_nltk/stopwords_cn.txt
+__pycache__

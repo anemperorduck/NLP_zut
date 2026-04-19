@@ -33,6 +33,7 @@ class ReActAgent:
             thought_match = re.search(r"<thought>(.*?)</thought>", content, re.DOTALL)
             if thought_match:
                 thought = thought_match.group(1)
+            print(f"\n Though: {thought}")
             
             # 检测是否输出 Final Answer，如果是，直接返回
             if "<final_answer>" in content:
@@ -46,12 +47,13 @@ class ReActAgent:
             action = action_match.group(1)
             tool_name, args = self.parse_action(action)
 
-            print(f"\n\n Action: {tool_name}({', '.join(args)})")
+            print(f"\n Action: {tool_name}({', '.join(args)})")
             
             # 只有终端命令才需要询问用户，其他工具继续执行
-            should_continue = input(f"请求调用Tool-{tool_name}\n是否继续？（Y/N）") if tool_name in ["run_terminal_command", "write_to_file"] else "y"
+            should_continue = input(f"请求调用Tool-{tool_name}\n是否继续？（Y/N）") \
+                if tool_name in ["run_terminal_command", "write_to_file"] else "y"
             if should_continue.lower() != 'y':
-                print("\n\n操作已取消。")
+                print("\n操作已取消。")
                 return "操作已被用户取消"
             
             try:
@@ -59,7 +61,7 @@ class ReActAgent:
             except Exception as e:
                 observation = f"工具执行错误：{str(e)}"
             
-            print(f"\n\n Observation：{observation}")
+            print(f"\n Observation：{observation}")
             obs_msg = f"<observation>{observation}</observation>"
             messages.append({"role": "user", "content": obs_msg})
     
@@ -100,7 +102,7 @@ class ReActAgent:
 
 
     def call_model(self, message):
-        print("\n\n请求模型中 ··· \n\n")
+        print("\n请求模型中 ··· \n")
         response = self.client.chat.completions.create(
             model = self.model,
             messages=message,
